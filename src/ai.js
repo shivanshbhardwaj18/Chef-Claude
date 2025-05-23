@@ -1,5 +1,5 @@
 const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_KEY;
-
+console.log("API key is:", OPENROUTER_API_KEY);
 export async function getRecipeFromMistral(ingredientsArr,instruction="") {
     const ingredientsString = ingredientsArr.join(", ");
 

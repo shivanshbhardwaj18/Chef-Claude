@@ -17,8 +17,8 @@ export default function Header() {
 
   return (
     <header className="Header">
-      <img className="Headerimg" src="./chef-icon.png" alt="Chef Icon" />
-      <h1 className="HeaderText">Chef Claude</h1>
+      <Link to="/"><img className="Headerimg" src="./chef-icon.png" alt="Chef Icon" /></Link>
+      <Link to="/" className="header-link"><h1 className="HeaderText">Chef Claude</h1></Link>
 
       <nav className="log-sign">
         {user ? (

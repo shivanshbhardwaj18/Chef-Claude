@@ -89,6 +89,19 @@ export default function Main() {
           + Add Ingredient
         </button>
       </form>
+
+
+     {/* Welcome Message when no ingredients are added */}
+     {ingredients.length === 0 && (
+     <div className="empty-message">
+     <h2>🍽️ Ready to cook something creative?</h2>
+     <p>Enter at least 4 ingredients above to get a delicious AI-generated recipe!</p>
+     <p>Try things like <i>tomato, garlic, onion, basil</i> 🍅🌿🧄🧅</p>
+     </div>
+     )}
+
+     
+
       
       {/* Recipe Type Options (only shown when ingredients are present) */}
       {ingredients.length > 3 && (
@@ -114,7 +127,7 @@ export default function Main() {
             />
             Vegan
           </label>
-          <label className="radio-option" style={{accentColor:"green"}}>
+          <label className="radio-option" style={{accentColor:"#28a745"}}>
             <input
               type="radio"
               name="recipeType"
@@ -147,6 +160,14 @@ export default function Main() {
           getRecipe={getRecipe}
         />
       )}
+
+      {ingredients.length > 0 && ingredients.length < 4 && (
+  <div className="ingredient-reminder">
+    <p>
+      📝 You’ve added {ingredients.length}. Add atleast {4 - ingredients.length} more to get your recipe.
+    </p>
+  </div>
+)}
 
       {/* Recipe Display */}
       {recipe && (

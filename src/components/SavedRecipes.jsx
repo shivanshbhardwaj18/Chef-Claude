@@ -26,17 +26,7 @@ export default function SavedRecipes() {
           <ReactMarkdown>{recipe}</ReactMarkdown>
           <button
             onClick={() => removeRecipe(recipe)}  // pass recipe string here
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              backgroundColor: "black",
-              border: "none",
-              padding: "0.4rem 0.6rem",
-              color: "white",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
+            className="Remove-Saved"
           >
             🗑️ Remove
           </button>
