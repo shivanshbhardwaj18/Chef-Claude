@@ -1,0 +1,771 @@
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.10), 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  height: 114px;
+  background-color: chartreuse;
+  position: relative;
+}
+
+.Headerimg {
+  height: 70px;
+  width: 70px;
+  margin-top: 3px;
+}
+
+.HeaderText {
+  display: flex;
+  margin-top: 28px;
+}
+
+.log-sign {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 7px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.log-sign a {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 33%;
+}
+
+.log-sign a:hover {
+  background-color: rgba(30, 30, 30, 0.9); /* soft hover effect */
+}
+
+.log-sign .logout-button {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 29%;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  /* Remove default button border */
+  border-style: none;
+  margin-left: 5px;
+}
+
+.log-sign .logout-button:hover {
+  background-color: rgba(30, 30, 30, 0.9); /* soft hover effect */
+}
+
+.user-email{
+  margin-top: 33%;
+}
+
+/* Main Input Section */
+.MainInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding-top: 80px;
+}
+
+.MInput {
+  height: 55px;
+  width: 600px;
+  padding: 0 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+}
+
+.MButton {
+  font-family: Inter, sans-serif;
+  height: 58px;
+  width: 180px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+.show-hide-recipe{
+  background-color: #010d04;
+  color: white;
+  height:35px;
+  width: 250px;
+  font-weight:500;
+}
+
+/* Ingredient List */
+ul.ingredients-list {
+  margin-bottom: 48px;
+}
+
+ul.ingredients-list > li {
+  color: #475467;
+  line-height: 28px;
+}
+
+.recipe-type-options {
+  position: absolute;
+  top: 330px;
+  right: 60px;
+  height: 150px;
+  display: flex;
+  font-size: 17px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  z-index: 9999;           /* VERY IMPORTANT */
+  pointer-events: auto;  
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+.radio-label{
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+
+
+.get-recipe-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background: rgb(228, 228, 228);
+  padding: 10px 28px;
+}
+
+.get-recipe-container h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.get-recipe-container p {
+  color: #010d04;
+  font-size: 0.875rem;
+  line-height: 20px;
+}
+
+.get-recipe-container button {
+  border: none;
+  border-radius: 6px;
+  background: #140c02;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  color: #FAFAF8;
+  padding: 9px 17px;
+  font-family: Inter, sans-serif;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* Suggested Recipe Section */
+.abcd {
+  font-size: larger;
+  width: 1415px;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.suggested-recipe-container {
+  width: 1410px;
+  color: #475467;
+  line-height: 28px;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.suggested-recipe-container ul li,
+.suggested-recipe-container ol li {
+  margin-bottom: 8px;
+}
+
+.suggested-recipe-container ul,
+.suggested-recipe-container ol {
+  padding-left: 1.2em;  /* Remove default padding for better alignment */
+  margin-left: 0;   /* Remove left margin */
+}
+
+.suggested-recipe-container ul li, 
+.suggested-recipe-container ol li{
+  list-style-position: outside;  /* Ensure bullets are inside */
+  margin-left: 0;               /* Remove any left margin */
+  padding-left: 0;              /* Remove padding */
+  width:102%;
+}
+
+.save-recipe-button{
+appearance: auto;
+background-color: rgb(0, 0, 0);
+border: 1.6px outset rgb(0, 0, 0);
+box-sizing: border-box;
+color: rgb(255, 255, 255);
+cursor: pointer;
+display: inline-block;
+font-family: Inter, sans-serif;
+font-size: 14px;
+font-weight: 400;
+height: 58px;
+margin: 0;
+padding: 1px 6px;
+text-align: center;
+width: 180px;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 1200px) and (max-width: 1415px) {
+  .Header {
+    flex-direction: row;
+    height: 80px;
+    padding: 20px 50px; /* Adjust padding for slightly larger screens */
+  }
+
+  .abcd {
+    font-size: 1.2rem; /* Increase font size for readability */
+    width: 100%;
+  }
+
+  .suggested-recipe-container {
+    width: 100%;
+    font-size: 1.125rem;
+  }
+
+  .get-recipe-container {
+    flex-direction: row; /* Keep items side by side */
+    align-items: center;
+    padding: 15px 40px; /* More padding to balance out the layout */
+    gap: 25px;
+  }
+
+  .get-recipe-container h3 {
+    font-size: 1.125rem;
+  }
+
+  .get-recipe-container p {
+    font-size: 1rem; /* Adjust font size for better readability */
+  }
+  .recipe-type-options {
+  position: absolute;
+  top: 335px;
+  right: 10px;
+  height: 150px;
+  display: flex;
+  font-size: 17px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  z-index: 9999;           /* VERY IMPORTANT */
+  pointer-events: auto;  
+  }
+
+  .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.1rem;
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .MInput {
+    width: 80%;
+  }
+
+  .MButton {
+    width: 50%;
+  }
+
+  .get-recipe-container {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .get-recipe-container h3,
+  .get-recipe-container p {
+    font-size: 1rem;
+  }
+
+  .suggested-recipe-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .Header {
+    flex-direction: row;
+    height: 80px;
+    padding: 20px 40px;
+  }
+
+  .MInput {
+    width: 85%; /* Adjust width for medium-sized screens */
+  }
+
+  .MButton {
+    width: 60%;
+  }
+
+  .abcd {
+    font-size: 1.2rem; /* Increase font size slightly */
+    width: 100%;
+  }
+
+  .suggested-recipe-container {
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .get-recipe-container {
+    padding: 15px 30px;
+    gap: 20px;
+    flex-direction: row; /* Align items side by side on larger screens */
+    align-items: center;
+  }
+
+  .get-recipe-container h3 {
+    font-size: 1.125rem;
+  }
+
+  .get-recipe-container p {
+    font-size: 0.95rem;
+  }
+
+    .recipe-type-options {
+  position: absolute;
+  top: 385px;
+  right: 10px;
+  height: 150px;
+  display: flex;
+  font-size: 17px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  z-index: 9999;           /* VERY IMPORTANT */
+  pointer-events: auto;  
+  }
+
+  .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.1rem;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .MInput {
+    width: 85%;
+  }
+
+  .MButton {
+    width: 60%;
+  }
+
+  .abcd {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  .suggested-recipe-container {
+    width: 100%;
+    font-size: 1.05rem;
+  }
+
+  .get-recipe-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .get-recipe-container h3,
+  .get-recipe-container p {
+    font-size: 1rem;
+  }
+  .recipe-type-options {
+  position: absolute;
+  top: 385px;
+  right: 10px;
+  height: 150px;
+  display: flex;
+  font-size: 17px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  z-index: 9999;           /* VERY IMPORTANT */
+  pointer-events: auto;  
+  }
+
+  .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .Header {
+    flex-direction: column;
+    align-items: center;
+    height: 80px;
+    padding: 20px;
+  }
+
+  .MInput {
+    width: 90%;
+    margin-bottom: 15px;
+  }
+
+  .MButton {
+    width: 90%;
+  }
+
+  .abcd {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  .suggested-recipe-container {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .recipe-type-options {
+  position: absolute;
+  top: 408px;
+  right: 10px;
+  height: 145px;
+  display: flex;
+  font-size: 17px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  z-index: 9999;           /* VERY IMPORTANT */
+  pointer-events: auto;  
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.1rem;
+}
+
+.log-sign {
+  position: absolute;
+  right: 0.4rem;
+  top: 05%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 5px;
+  font-weight: 500;
+  line-height: 20px;
+  width: 160px;
+  }
+ 
+.log-sign a {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14.5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 33%;
+  }
+
+  .user-email{
+  width: 42.5px;
+  margin-top: 35%;
+  font-size: 15px;
+  margin-right: 50px;
+  }
+  .logout-button {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  font-weight: 200;
+  width: 58px;
+  line-height: 20px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 100px;
+  /* Remove default button border */
+  border-style: none;
+  margin-left: 5px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+  .Header {
+    height: 80px;
+  }
+
+  .MInput {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .MButton {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .get-recipe-container {
+    padding: 15px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .get-recipe-container h3 {
+    font-size: 1rem;
+  }
+
+  .get-recipe-container p {
+    font-size: 0.8rem;
+  }
+
+  .abcd {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .suggested-recipe-container {
+    font-size: 1rem;
+  }
+
+  .radio-label{
+    font-size: 12px;
+  }
+  .recipe-type-options {
+  position: absolute;
+  top: 400px;
+  right: 10px;
+  height: 140px;
+  display: flex;
+  font-size: 12px;
+  width: 100px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  z-index: 9999;           /* VERY IMPORTANT */
+  pointer-events: auto;  
+  }
+
+  .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.1rem;
+  }
+  
+  .log-sign {
+  position: absolute;
+  right: 0.4rem;
+  top: 05%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 5px;
+  font-weight: 500;
+  line-height: 20px;
+  width: 135px;
+  }
+ 
+  .log-sign a {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 10.5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 33%;
+  }
+  .user-email{
+  width: 22.5px;
+  margin-top: 35%;
+  font-size: 12px;
+  margin-right: 50px;
+  }
+  .logout-button {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  font-weight: 200;
+  width: 58px;
+  line-height: 20px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 100px;
+  /* Remove default button border */
+  border-style: none;
+  margin-left: 5px;
+  }
+
+}
+
+@media (max-width:380px)
+{
+  .recipe-type-options {
+  position: absolute;
+  top: 400px;
+  right: 10px;
+  height: 135px;
+  display: flex;
+  font-size: 10px;
+  width: 55px;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  z-index: 9999;           /* VERY IMPORTANT */
+  pointer-events: auto;  
+  }
+
+  .radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-bottom: 0.1rem;
+  }
+
+  .radio-label{
+  font-size: 10px;
+  }
+
+  .log-sign {
+  position: absolute;
+  right: 0.4rem;
+  top: 05%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 5px;
+  font-weight: 500;
+  line-height: 10px;
+  width: 112px;
+  }
+ 
+  .log-sign a {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 10.5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 33%;
+  }
+  
+  .user-email{
+    width: 17.5px;
+    margin-top: 38%;
+    font-size: 9px;
+    margin-right: 32px;
+  }
+  .logout-button {
+  background-color: rgb(13, 13, 13);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 9999px; /* ultra-rounded (pill shape) */
+  font-weight: 200;
+  width: 59px;
+  line-height: 20px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: 0.8px solid rgba(0, 0, 0, 0); /* subtle consistent border */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 100px;
+  /* Remove default button border */
+  border-style: none;
+  margin-left: 5px;
+  }
+}
+
+
