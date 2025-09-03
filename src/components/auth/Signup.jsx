@@ -23,7 +23,7 @@ export default function Signup() {
       setEmail("");
       setPassword("");
       setTimeout(() => {
-        navigate("/login");
+        navigate("/");
       }, 1500);
     } catch (err) {
       setToastType("error");

@@ -18,10 +18,21 @@ app.get("/", (req, res) => {
 
 // New AI route (we'll fill this in next)
 app.post("/get-recipe", async (req, res) => {
-  const { ingredients, instruction = "" } = req.body;
+  const { ingredients, cuisine, diet, time } = req.body;
 
   const ingredientsString = ingredients.join(", ");
-  const prompt = `You are an assistant that receives a list of ingredients: ${ingredientsString} and suggests a recipe using some or all of those ingredients.${instruction} The recipe can include extra ingredients but try to keep it simple. Format your response in markdown: start with a natural recipe name or description, followed by a list of ingredients and instructions. Avoid using header like "Title" — keep the response conversational and easy to read in a humane manner`;
+
+  let instruction = "";
+  if (cuisine && cuisine !== "Any") {
+    instruction += ` The recipe should be a ${cuisine} dish.`;
+  }
+  if (diet && diet !== "None") {
+    instruction += ` It should also be ${diet}.`;
+  }
+  if (time && time !== "Any") {
+    instruction += ` The cooking time should be ${time}.`;
+  }
+  const prompt = `You are an assistant that receives a list of ingredients: ${ingredientsString} and suggests a recipe using some or all of those ingredients.${instruction} try to keep it simple, follow the ${instruction} provided strictly. Format your response in markdown: start with a natural recipe name or description, followed by a list of ingredients and instructions. Avoid using header like "Title" — keep the response conversational and easy to read in a humane manner`;
 
   try {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {

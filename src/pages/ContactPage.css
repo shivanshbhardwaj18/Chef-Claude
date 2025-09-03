@@ -1,0 +1,169 @@
+/* --- 1. Main Wrapper & Scoped Styles --- */
+.contact-page-wrapper {
+  --font-sans: 'Lato', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-accent: #e87949;
+  --color-border: #ddd;
+  --color-bg-light: #f9f9f9;
+
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-light);
+  padding: 4rem 1.5rem;
+}
+
+.contact-page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* --- 2. Header --- */
+.contact-page-wrapper .contact-header {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-page-wrapper .contact-header h1 {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  margin: 0 0 1rem 0;
+  color: var(--color-text);
+}
+
+.contact-page-wrapper .contact-header p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- 3. Body Layout --- */
+.contact-page-wrapper .contact-body-grid {
+  display: grid;
+  grid-template-columns: 1fr; 
+}
+
+/* --- 4. Contact Form --- */
+.contact-page-wrapper .contact-form-section {
+  padding: 2.5rem;
+  text-align: left; 
+}
+
+.contact-page-wrapper .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.contact-page-wrapper .form-group label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.contact-page-wrapper .form-group input,
+.contact-page-wrapper .form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box; 
+}
+
+.contact-page-wrapper .form-group input:focus,
+.contact-page-wrapper .form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(232, 121, 73, 0.2);
+}
+
+.contact-page-wrapper .submit-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-page-wrapper .submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* --- 5. Contact Info --- */
+.contact-page-wrapper .contact-info-section {
+  background-color: var(--color-bg-light);
+  padding: 2.5rem;
+}
+
+.contact-page-wrapper .info-block {
+  margin-bottom: 2rem;
+}
+
+.contact-page-wrapper .info-block h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin: 0 0 0.75rem 0;
+  color: var(--color-text);
+}
+
+.contact-page-wrapper .info-block p {
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.contact-page-wrapper .map-placeholder img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* --- 6. Responsive Design --- */
+@media (min-width: 900px) {
+  .contact-page-wrapper .contact-body-grid {
+    grid-template-columns: 3fr 2fr; /* Two columns on larger screens */
+  }
+
+  .contact-page-wrapper .contact-info-section {
+    border-left: 1px solid var(--color-border);
+  }
+}
+
+
+@media (max-width: 480px) {
+  .contact-page-wrapper {
+    padding: 2rem 1rem; 
+  }
+
+  .contact-page-wrapper .contact-header {
+    padding: 2rem 1rem; 
+  }
+
+  .contact-page-wrapper .contact-header h1 {
+    font-size: 2.25rem; 
+  }
+
+  .contact-page-wrapper .contact-header p {
+    font-size: 1rem; 
+  }
+
+  .contact-page-wrapper .contact-form-section,
+  .contact-page-wrapper .contact-info-section {
+    padding: 1.5rem; 
+  }
+}

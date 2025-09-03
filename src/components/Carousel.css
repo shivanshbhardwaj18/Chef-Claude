@@ -1,0 +1,124 @@
+.carousel-section {
+  width: 100%;
+  margin-bottom: 1.25rem; 
+  margin-top: -1.25rem;
+}
+
+.carousel-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+}
+
+
+.carousel-fade-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+.carousel-fade-wrapper::before,
+.carousel-fade-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.carousel-fade-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.85), transparent);
+}
+
+.carousel-fade-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.85), transparent);
+}
+
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  padding: 0 12px;
+  overflow-x: scroll;
+  scroll-behavior: smooth; 
+  scrollbar-width: none;   
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none; 
+}
+
+.carousel-track.no-smooth {
+  scroll-behavior: auto;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 280px;
+  scroll-snap-align: start;
+}
+
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.55);
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem;
+  cursor: pointer;
+  z-index: 3; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s ease;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0,0,0,0.85);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.98);
+}
+
+.carousel-arrow.left {
+  left: 8px;
+}
+
+.carousel-arrow.right {
+  right: 8px;
+}
+
+@media (max-width: 768px) {
+  .carousel-title {
+    font-size: 1.65rem;
+    margin-left: 1rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .carousel-item {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-title {
+    font-size: 1.4rem;
+    margin-left: 0.3rem;
+    margin-bottom: 1rem;;
+  }
+
+  .carousel-item {
+    width: 200px;
+  }
+}

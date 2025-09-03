@@ -1,0 +1,210 @@
+/* src/components/Footer.css */
+
+.footer-wrapper {
+  background-color: #1a1a1a;
+  color: #a9a9a9;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 4rem 2rem 1rem;
+  /*
+    NOTE: The animation styles (opacity, transform, transition) have been removed from here.
+    This container is now always visible.
+  */
+}
+
+/* 1. Define the initial, "hidden" state for the content INSIDE the footer */
+.footer-section,
+.footer-bottom {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* 2. Define the final, "visible" state for the content */
+.footer-wrapper.is-visible .footer-section,
+.footer-wrapper.is-visible .footer-bottom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 3. The Cascade Effect! Add a delay to each column. */
+.footer-wrapper.is-visible .footer-section:nth-child(1) {
+  transition-delay: 0s;
+}
+.footer-wrapper.is-visible .footer-section:nth-child(2) {
+  transition-delay: 0.15s;
+}
+.footer-wrapper.is-visible .footer-section:nth-child(3) {
+  transition-delay: 0.3s;
+}
+.footer-wrapper.is-visible .footer-section:nth-child(4) {
+  transition-delay: 0.45s;
+}
+.footer-wrapper.is-visible .footer-bottom {
+  transition-delay: 0.6s;
+}
+
+
+/* --- ALL OTHER STYLES BELOW REMAIN THE SAME --- */
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.footer-section p {
+  line-height: 1.7;
+}
+
+.footer-section.about-us p {
+  max-width: 300px;
+}
+
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-links li {
+  margin-bottom: 0.75rem;
+}
+
+.quick-links a {
+  color: #a9a9a9;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.quick-links a:hover {
+  color: #ffffff;
+}
+
+.newsletter-form {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.newsletter-form input {
+  flex-grow: 1;
+  border: 1px solid #444;
+  background-color: #2b2b2b;
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  min-width: 100px;
+}
+
+.newsletter-form button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background-color: #e87949;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 0 8px 8px 0;
+  transition: background-color 0.2s ease;
+}
+
+.newsletter-form button:hover {
+  background-color: #d16a3c;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #444;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50%;
+  font-weight: 700;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.social-icons a:hover {
+  background-color: #e87949;
+  border-color: #e87949;
+}
+
+.footer-bottom {
+  border-top: 1px solid #444;
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+.legal-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.legal-links a {
+  color: #a9a9a9;
+  text-decoration: none;
+}
+
+.legal-links a:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .newsletter-form {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 320px) {
+  .footer-wrapper {
+    padding: 3rem 1rem 1rem;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .footer-section p {
+    font-size: 0.9rem;
+  }
+}

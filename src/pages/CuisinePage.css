@@ -1,0 +1,126 @@
+/* --- 1. Main Container & Scoped Styles --- */
+.cuisine-page-wrapper {
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Lato', sans-serif;
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-background: #fff;
+  --color-border: #eee;
+  
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- 2. Hero Section --- */
+.cuisine-page-wrapper .cuisine-hero {
+  height: 50vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.cuisine-page-wrapper .cuisine-hero-overlay {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+
+.cuisine-page-wrapper .cuisine-main-title {
+  font-family: var(--font-serif);
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* --- 3. Content Area --- */
+.cuisine-page-wrapper .cuisine-content-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.cuisine-page-wrapper .cuisine-description-section {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.cuisine-page-wrapper .cuisine-description {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--color-text-light);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* --- 4. Popular Recipes Section --- */
+.cuisine-page-wrapper .popular-recipes-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.cuisine-page-wrapper .popular-recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.cuisine-page-wrapper .popular-recipe-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+}
+
+.cuisine-page-wrapper .popular-recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.cuisine-page-wrapper .popular-recipe-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.cuisine-page-wrapper .popular-recipe-card-title {
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* --- 5. Responsive Design --- */
+@media (max-width: 768px) {
+  .cuisine-page-wrapper .cuisine-main-title {
+    font-size: 2.5rem;
+  }
+  .cuisine-page-wrapper .cuisine-hero-overlay {
+    padding: 2rem 1.5rem;
+  }
+  .cuisine-page-wrapper .cuisine-content-container {
+    padding: 2rem 1rem;
+  }
+  .cuisine-page-wrapper .cuisine-description {
+    font-size: 1.1rem;
+  }
+}
