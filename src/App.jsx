@@ -1,6 +1,5 @@
-// src/App.jsx
 import React from 'react';
-// Note: BrowserRouter as Router has been removed from this import
+
 import { Routes, Route } from 'react-router-dom';
 
 import Header from "./components/Header.jsx";
@@ -15,8 +14,6 @@ import ContactPage from './pages/ContactPage.jsx';
 
 function App() {
   return (
-    // The <Router> component has been removed from this file.
-    // The <>...</> are fragments, which are fine.
     <>
       <Header />
       <Routes>

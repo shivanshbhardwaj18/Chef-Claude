@@ -13,7 +13,7 @@ const Footer = () => {
     <footer ref={ref} className={`footer-wrapper ${inView ? 'is-visible' : ''}`}>
       <div className="footer-container">
         <div className="footer-section about-us">
-          <h3 className="footer-title">Chef Claude</h3>
+          <h3 className="footer-title">ChefVerse</h3>
           <p>Your AI-powered culinary assistant. Discover, create, and share amazing recipes tailored just for you.</p>
         </div>
 
@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; 2025 Chef Claude. All Rights Reserved.</p>
+        <p>&copy; 2025 ChefVerse. All Rights Reserved.</p>
         <div className="legal-links">
           <a href="/privacy-policy">Privacy Policy</a>
           <span>|</span>

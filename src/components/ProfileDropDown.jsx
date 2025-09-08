@@ -1,21 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/useAuth";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
 import { Link } from "react-router-dom";
 import "./ProfileDropdown.css"; 
 
 export default function ProfileDropdown() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef();
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+  const handleLogout = () => {
+    logout();
   };
 
   useEffect(() => {

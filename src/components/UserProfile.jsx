@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../context/useAuth";
-import { updateProfile, updatePassword, deleteUser } from "firebase/auth";
+import { useAuth } from "../context/useAuth"; 
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
 import SavedRecipes from "./SavedRecipes"; 
 import "./UserProfile.css";
 
 const UserProfile = () => {
-  const { user: currentUser } = useAuth();
+  const { user: authUser, token, setUser } = useAuth();
   const navigate = useNavigate();
 
   const [displayName, setDisplayName] = useState("");
@@ -16,17 +14,30 @@ const UserProfile = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // Track which section is currently active via URL hash
   const [activeSection, setActiveSection] = useState(
     window.location.hash.replace("#", "") || "profile"
   );
 
+  // Fetch user info from backend
   useEffect(() => {
-    if (currentUser) {
-      setDisplayName(currentUser.displayName || "");
-      setAvatarUrl(currentUser.photoURL || "");
+    async function fetchUser() {
+      if (!token) return;
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (data.user) {
+          setDisplayName(data.user.display_name || "");
+          setAvatarUrl(data.user.avatar_url || "");
+          setUser(data.user);
+        }
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      }
     }
-  }, [currentUser]);
+    fetchUser();
+  }, [token, setUser]);
 
   useEffect(() => {
     if (message || error) {
@@ -38,7 +49,6 @@ const UserProfile = () => {
     }
   }, [message, error]);
 
-  // Listen to hash changes to update active section
   useEffect(() => {
     const handleHashChange = () => {
       setActiveSection(window.location.hash.replace("#", "") || "profile");
@@ -47,7 +57,7 @@ const UserProfile = () => {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  if (!currentUser) return <p>Loading...</p>;
+  if (!authUser) return <p>Loading...</p>;
 
   const clearMessages = () => {
     setMessage("");
@@ -58,13 +68,23 @@ const UserProfile = () => {
     e.preventDefault();
     clearMessages();
     try {
-      await updateProfile(auth.currentUser, {
-        displayName,
-        photoURL: avatarUrl,
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/update-profile`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ display_name: displayName, avatar_url: avatarUrl }),
       });
-      setMessage("Profile updated successfully!");
+      const data = await res.json();
+      if (res.ok) {
+        setMessage("Profile updated successfully!");
+        setUser(data.user);
+      } else {
+        setError(data.error || "Failed to update profile.");
+      }
     } catch (err) {
-      setError(err.message);
+      setError("An error occurred while updating profile.");
     }
   };
 
@@ -76,11 +96,23 @@ const UserProfile = () => {
       return;
     }
     try {
-      await updatePassword(auth.currentUser, newPassword);
-      setMessage("Password updated successfully!");
-      setNewPassword("");
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/change-password`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ newPassword }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage("Password updated successfully!");
+        setNewPassword("");
+      } else {
+        setError(data.error || "Failed to update password.");
+      }
     } catch (err) {
-      setError("Re-authentication required. Log out and log in again.");
+      setError("An error occurred while updating password.");
     }
   };
 
@@ -92,10 +124,18 @@ const UserProfile = () => {
       )
     ) {
       try {
-        await deleteUser(auth.currentUser);
-        navigate("/signup");
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/delete`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) {
+          navigate("/signup");
+        } else {
+          const data = await res.json();
+          setError(data.error || "Failed to delete account.");
+        }
       } catch (err) {
-        setError("Re-authentication required. Log out and log in again.");
+        setError("An error occurred while deleting account.");
       }
     }
   };
@@ -110,29 +150,13 @@ const UserProfile = () => {
       <div className="profile-content-area">
         <aside className="profile-sidebar">
           <nav>
-            <a
-              href="#profile"
-              className={activeSection === "profile" ? "active" : ""}
-            >
-              Profile
-            </a>
-            <a
-              href="#security"
-              className={activeSection === "security" ? "active" : ""}
-            >
-              Security
-            </a>
-            <a
-              href="#saved-recipes"
-              className={activeSection === "saved-recipes" ? "active" : ""}
-            >
-              Saved Recipes
-            </a>
+            <a href="#profile" className={activeSection === "profile" ? "active" : ""}>Profile</a>
+            <a href="#security" className={activeSection === "security" ? "active" : ""}>Security</a>
+            <a href="#saved-recipes" className={activeSection === "saved-recipes" ? "active" : ""}>Saved Recipes</a>
           </nav>
         </aside>
 
         <main className="profile-main">
-          {/* Conditionally rendering sections based on activeSection */}
           {activeSection === "profile" && (
             <section id="profile" className="profile-section">
               <div className="section-header">
@@ -152,16 +176,13 @@ const UserProfile = () => {
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <p className="email-display">{currentUser.email}</p>
+                  <p className="email-display">{authUser.email}</p>
                 </div>
                 <div className="form-group avatar-group">
                   <label>Avatar</label>
                   <div className="avatar-input-row">
                     <img
-                      src={
-                        avatarUrl ||
-                        `https://api.dicebear.com/7.x/initials/svg?seed=${currentUser.email}&size=96`
-                      }
+                      src={avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${authUser.email}&size=96`}
                       alt="avatar"
                       className="profile-avatar-preview"
                     />
@@ -174,9 +195,7 @@ const UserProfile = () => {
                   </div>
                 </div>
                 <div className="section-footer">
-                  <button type="submit" className="primary-button">
-                    Save Changes
-                  </button>
+                  <button type="submit" className="primary-button">Save Changes</button>
                 </div>
               </form>
             </section>
@@ -200,9 +219,7 @@ const UserProfile = () => {
                   />
                 </div>
                 <div className="section-footer">
-                  <button type="submit" className="primary-button">
-                    Update Password
-                  </button>
+                  <button type="submit" className="primary-button">Update Password</button>
                 </div>
               </form>
             </section>
@@ -218,7 +235,6 @@ const UserProfile = () => {
             </section>
           )}
 
-          {/* Danger Zone Section */}
           <section className="profile-section danger-zone">
             <div className="section-header">
               <h3>Danger Zone</h3>
@@ -230,17 +246,11 @@ const UserProfile = () => {
                   <strong>Delete Account</strong>
                   <p>Permanently remove your account and all of its contents.</p>
                 </div>
-                <button
-                  onClick={handleDeleteAccount}
-                  className="danger-button"
-                >
-                  Delete Account
-                </button>
+                <button onClick={handleDeleteAccount} className="danger-button">Delete Account</button>
               </div>
             </div>
           </section>
 
-          {/* Feedback Messages */}
           {message && <div className="feedback-message success">{message}</div>}
           {error && <div className="feedback-message error">{error}</div>}
         </main>

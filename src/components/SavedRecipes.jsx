@@ -11,9 +11,9 @@ export default function SavedRecipes() {
   return (
     <section style={{ padding: "1rem" }}>
       <h2>📚 Your Saved Recipes</h2>
-      {savedRecipes.map((recipe, index) => (
+      {savedRecipes.map((recipe) => (
         <div
-          key={index}
+          key={recipe.id}
           style={{
             border: "1px solid #ccc",
             borderRadius: "8px",
@@ -23,9 +23,10 @@ export default function SavedRecipes() {
             position: "relative",
           }}
         >
-          <ReactMarkdown>{recipe}</ReactMarkdown>
+          <h3>{recipe.title}</h3>
+          <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
           <button
-            onClick={() => removeRecipe(recipe)}  // pass recipe string here
+            onClick={() => removeRecipe(recipe.id)}
             className="Remove-Saved"
           >
             🗑️ Remove

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './IngredientsList.css';  // Import the CSS file for the styles
+import './IngredientsList.css'; 
 
 export default function IngredientsList(props) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        setIsVisible(true);  // Trigger fade-in animation when component mounts
+        setIsVisible(true);  // Triggers fade-in animation when component mounts
     }, []);
 
     const ingredientsListItems = props.ingredients.map((ingredient, index) => (

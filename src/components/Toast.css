@@ -1,15 +1,12 @@
 .toast {
-  /* Removed fixed positioning */
   padding: 12px 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   color: white;
-  margin-top: 1rem;  /* spacing below form */
+  margin-top: 1rem;  
   text-align: center;
   width: 100%;
   box-sizing: border-box;
-  /* optionally add font styles here */
-  /* z-index no longer needed */
 }
 
 .toast.success {

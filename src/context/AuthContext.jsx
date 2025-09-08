@@ -1,25 +1,40 @@
-// src/context/AuthContext.jsx
 import React, { createContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
+  // On mount, check if token/user exists in localStorage
   useEffect(() => {
-    // Firebase listener to track user login/logout
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser);
-    });
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
-    // Cleanup on unmount
-    return () => unsubscribe();
+    if (storedUser && storedToken) {
+      setUser(JSON.parse(storedUser));
+      setToken(storedToken);
+    }
   }, []);
 
+  // Login function: save user + token
+  const login = (userData, jwtToken) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("token", jwtToken);
+    setUser(userData);
+    setToken(jwtToken);
+  };
+
+  // Logout function: remove user + token
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setUser(null);
+    setToken(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, token, setUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

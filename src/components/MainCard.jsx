@@ -114,7 +114,7 @@ const MainCard = ({
       default:
         return {
           heading: 'Chef, ready to cook something creative?',
-          subheading: 'Enter ingredients you have on hand and let Chef Claude work its magic!',
+          subheading: 'Enter ingredients you have on hand and let ChefVerse work its magic!',
         };
     }
   };

@@ -1,74 +1,107 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import { db } from "../firebase";
-import { doc, onSnapshot, updateDoc, arrayUnion, arrayRemove, setDoc, getDoc } from "firebase/firestore";
 import { useAuth } from "./useAuth";
 
 const SavedRecipesContext = createContext();
 
 function SavedRecipesProvider({ children }) {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch saved recipes from backend
   useEffect(() => {
-    if (!user) {
+    if (!user || !token) {
       setSavedRecipes([]);
       setLoading(false);
       return;
     }
 
-    const userDocRef = doc(db, "users", user.uid);
+    let cancelled = false;
 
-    // Check if user doc exists once to create if missing (optional)
-    async function ensureUserDoc() {
-      const docSnap = await getDoc(userDocRef);
-      if (!docSnap.exists()) {
-        await setDoc(userDocRef, { recipes: [] });
+    async function fetchSavedRecipes() {
+      try {
+        setLoading(true);
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/recipe/saved`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          console.error("Failed fetching saved recipes:", res.status, text);
+          if (!cancelled) setSavedRecipes([]);
+          return;
+        }
+
+        const data = await res.json();
+        if (!cancelled) setSavedRecipes(data.savedRecipes || []);
+      } catch (err) {
+        console.error("Error fetching saved recipes:", err);
+        if (!cancelled) setSavedRecipes([]);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     }
-    ensureUserDoc();
 
-    // Real-time listener on user's recipes doc
-    const unsubscribe = onSnapshot(
-      userDocRef,
-      (docSnap) => {
-        if (docSnap.exists()) {
-          setSavedRecipes(docSnap.data().recipes || []);
-        } else {
-          setSavedRecipes([]);
-        }
-        setLoading(false);
-      },
-      (error) => {
-        console.error("Error fetching saved recipes in real-time:", error);
-        setLoading(false);
-      }
-    );
+    fetchSavedRecipes();
+    return () => { cancelled = true; };
+  }, [user, token]);
 
-    return () => unsubscribe();
-  }, [user]);
+  async function addRecipe(recipe) {
+    if (!user || !token) return null;
 
-  async function addRecipe(newRecipe) {
-    if (!user) return;
     try {
-      const userDocRef = doc(db, "users", user.uid);
-      await updateDoc(userDocRef, {
-        recipes: arrayUnion(newRecipe),
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/recipe/get-recipe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ...recipe, save: true }),
       });
-    } catch (error) {
-      console.error("Error adding recipe:", error);
+
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("Error saving recipe (status):", res.status, text);
+        return null;
+      }
+
+      const data = await res.json();
+
+      if (data.saved) {
+        setSavedRecipes(prev => [data.saved, ...prev]);
+        return data.saved;
+      } else {
+        console.warn("Save API returned no saved recipe:", data);
+        return null;
+      }
+    } catch (err) {
+      console.error("Error saving recipe:", err);
+      return null;
     }
   }
 
-  async function removeRecipe(recipeToRemove) {
-    if (!user) return;
+  async function removeRecipe(recipeId) {
+    if (!user || !token) return;
+
     try {
-      const userDocRef = doc(db, "users", user.uid);
-      await updateDoc(userDocRef, {
-        recipes: arrayRemove(recipeToRemove),
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/recipe/${recipeId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-    } catch (error) {
-      console.error("Error removing recipe:", error);
+
+      if (res.ok) {
+        setSavedRecipes(prev => prev.filter(r => r.id !== recipeId));
+        return true;
+      } else {
+        const text = await res.text();
+        console.error("Failed to remove recipe:", res.status, text);
+        return false;
+      }
+    } catch (err) {
+      console.error("Error removing recipe:", err);
+      return false;
     }
   }
 

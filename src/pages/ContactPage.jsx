@@ -47,7 +47,7 @@ const ContactPage = () => {
             </div>
             <div className="info-block">
               <h3>Email Us</h3>
-              <p>✉️ hello@chefclaude.com</p>
+              <p>✉️ hello@chefverse.com</p>
             </div>
             <div className="info-block">
               <h3>Call Us</h3>

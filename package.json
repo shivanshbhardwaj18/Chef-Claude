@@ -1,5 +1,5 @@
 {
-  "name": "chef-claude",
+  "name": "chef-verse",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@huggingface/inference": "^3.11.0",
-    "firebase": "^11.8.0",
     "lucide-react": "^0.540.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

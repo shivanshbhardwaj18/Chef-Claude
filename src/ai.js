@@ -1,22 +1,33 @@
-// src/ai.js
-
 export async function getRecipeFromMistral(recipeRequest) {
   try {
     const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
-    const response = await fetch(`${backendURL}/get-recipe`, {
+    // Prepare payload for backend
+    const payload = { ...recipeRequest };
+
+    // Only attach token if user wants to save the recipe
+    const token = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "application/json",
+      ...(payload.save && token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+
+    const response = await fetch(`${backendURL}/recipe/get-recipe`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Send the entire recipeRequest object in the body
-      body: JSON.stringify(recipeRequest),
+      headers,
+      body: JSON.stringify(payload),
     });
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("Backend error:", text);
+      return "Failed to generate recipe. Try again.";
+    }
 
     const data = await response.json();
     return data.recipe || "No recipe generated.";
-  } catch (error) {
-    console.error("Error fetching from backend:", error.message);
+  } catch (err) {
+    console.error("Error fetching recipe:", err);
     return "Sorry, something went wrong.";
   }
 }
