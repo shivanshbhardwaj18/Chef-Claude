@@ -12,13 +12,47 @@ function extractTitleFromMarkdown(markdown) {
 
 // Generate AI recipe (with optional save if authenticated)
 export const getRecipe = async (req, res) => {
-  const { ingredients = [], cuisine, diet, time, save } = req.body;
+  const { ingredients = [], cuisine, diet, time, save, content } = req.body;
   const userId = req.user?.id;
 
   console.log("[getRecipe] save flag:", save);
+  console.log("[getRecipe] content provided:", !!content);
   console.log("[getRecipe] received ingredients length:", Array.isArray(ingredients) ? ingredients.length : "not-array");
   console.log("[getRecipe] req.user:", req.user ? { id: req.user.id, email: req.user.email } : null);
   console.log("[getRecipe] Authorization header present:", !!req.headers?.authorization);
+
+  // If content is provided (for saving existing recipe), use it directly
+  if (content && save) {
+    if (!userId) {
+      console.warn("[getRecipe] save requested with content but no authenticated user");
+      return res.status(401).json({ error: "Authentication required to save recipe" });
+    }
+
+    try {
+      const title = extractTitleFromMarkdown(content);
+      
+      const savedRecipe = await pool.query(
+        `INSERT INTO recipes (user_id, title, instructions, source)
+         VALUES ($1, $2, $3, $4) RETURNING id, title, instructions, source, user_id, created_at`,
+        [userId, title, content, "AI"]
+      );
+
+      const recipeId = savedRecipe.rows[0].id;
+
+      await pool.query(
+        `INSERT INTO saved_recipes (user_id, recipe_id) VALUES ($1, $2)`,
+        [userId, recipeId]
+      );
+
+      return res.json({
+        recipe: content,
+        saved: savedRecipe.rows[0],
+      });
+    } catch (err) {
+      console.error("Error saving existing recipe:", err && err.stack ? err.stack : err);
+      return res.status(500).json({ error: "Something went wrong while saving recipe." });
+    }
+  }
 
   const ingredientsString = Array.isArray(ingredients) ? ingredients.join(",") : String(ingredients || "");
 
